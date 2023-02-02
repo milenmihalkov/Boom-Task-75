@@ -3,13 +3,14 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 function App() {
-  const [text, setText] = useState(() => {
-    return localStorage.getItem("note") || "";
-  });
+  const [text, setText] = useState(localStorage.getItem("note") || "");
 
   useEffect(() => {
     localStorage.setItem("note", text);
   }, [text]);
+
+  const handleSave = () => localStorage.setItem("note", text);
+  const handleClear = () => setText("");
 
   return (
     <div className="App">
@@ -26,11 +27,11 @@ function App() {
         </div>
         <button 
         className="button is-large is-primary is-active" 
-        onClick={() => localStorage.setItem("note", text)}>
+        onClick={handleSave}>
           Save</button>
         <button 
         className="button is-large" 
-        onClick={() => setText("")}>
+        onClick={handleClear}>
           Clear</button>
       </div>
     </div>
